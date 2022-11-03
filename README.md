@@ -30,15 +30,15 @@ Here is a script (be sure to `chmod +x` the script):
 	
 	print("Hi")
 
-To exexute they python script, do the following.
+To execute the python script, do the following.
 
 	tea +python.org ./script.py
 
-I think `+python.org` will install python or add python to the path.
+The `+python.org` will install python if needed and then open a shell with the python environment activated. Tea then runs the commands that come after in that shell. So "+pkg" creates or activats a virtual environment.
 
 At this stage, Tea isn't a replacement for Homebrew. The biggest reason is that using Tea looks like this.
 
-	tea +identifier command args
+	tea +pkg command args
 
 This is how you execute wget:
 
