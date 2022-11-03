@@ -86,7 +86,7 @@ This will install tea: `sh <(curl tea.xyz)`
 
 ## Testing executable markdown.
 
-Test this by running `sh <(curl tea.xyz) https://github.com/magnusviri/tea-test/blob/main/README.md`. It's currently not working or I'm doing something wrong.
+Test this by running `sh <(curl tea.xyz) https://github.com/magnusviri/tea-notes/blob/main/README.md`. It's currently not working or I'm doing something wrong.
 
 # Getting Started
 
