@@ -1,4 +1,4 @@
-# tea-notes
+## tea-notes
 
 My Tea.xyz notes (I should have this on my website but it's here for now).
 
