@@ -42,7 +42,7 @@ This is how you execute wget:
 
 	tea +gnu.org/wget wget http://example.com
 
-Tea will not create an alias or add wget to the PATH variable. That's because Tea is so heavily wrapped up in virtual environments and right now Tea is targeting developers. But you can do add aliases yourself.
+Tea will not create an alias or add wget to the PATH variable. That's because Tea is so heavily wrapped up in virtual environments and right now Tea is targeting developers. But you can add aliases yourself.
 
 	alias wget="tea +gnu.org/wget wget"
 
