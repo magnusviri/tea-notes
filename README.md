@@ -20,7 +20,7 @@ Remuneration: Tea tokens isn't all about earning money. Remuneration can also be
 
 I think "universal interpretation" means that it can install whatever interpreter is required for a script. So `tea +python.org ./test.py` will install python if it's missing, then it will launch test.py and pass it to python. Here's some examples of running python code. The following will print "Hi" using Python.
 
-	echo 'print("hi") | tea +python.org python
+	echo 'print("hi")' | tea +python.org python
 
 To exexute a python script, do the following.
 
