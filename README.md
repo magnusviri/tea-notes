@@ -1,22 +1,58 @@
-# tea-test
+# tea-notes
 
-Testing Tea.xyz
+My Tea.xyz notes (I should have this on my website but it's here for now).
 
-Test this yourself by running `sh <(curl tea.xyz) https://github.com/magnusviri/tea-test/blob/main/README.md`
+## Notes from  2022-11-03 AMA.
 
-    echo "test 1"
+Tea CLI is written in TypeScript and compiled to binary using deno (https://deno.land/).
 
-# Getting Started
+Tea installs to ~/.tea, sandboxed. It sandboxes throughout. It was written as virtual environment manager first. That way you can have multiple versions of the same software installed. This can be changed with env vars. Everything is compiled to be relocatable (this wasn't easy). They are activating virtual environments by using zsh directory hooks.
 
-    echo "test 2"
+Tea doesn't need to be installed. If you run it from the web (`sh <(curl tea.xyz) ...`), it will create an environment in /tmp (which is usually deleted periodically, I think on macOS it is cleaned out when you reboot).
 
-## Getting Started
+On macOS, Xcode Command Line Tools isn't required if the package doesn't need to be compiled to install or run it. If the package needs to be compiled, Tea comes with a compiler but it works better with Apple's and it will prompt you to use it.
 
-    echo "test 3"
+Tea can "execute" markdown. If a markdown file includes a "# Getting Started" section (I'm not sure if it's "#" or "##" yet), then `sh <(curl tea.xyz) https://github.com/my/project` will execute the code in that section. I actually couldn't get this to work yet.
 
-## Something else
+Private pantries are possible. Tea has their own internal QA server for testing out stuff before they deploy it.
 
-    echo "test 4"
+Remuneration: Tea tokens isn't all about earning money. Remuneration can also be passed 100% to it's dependencies or donated to charity.
+
+I think "universal interpretation" means that it can install whatever interpreter is required for a script. So `tea +python.org ./test.py` will install python if it's missing, then it will launch test.py and pass it to python.
+
+Note: You use `sh <(curl tea.xyz)` to install the `tea` cli or to run it without installing. If you have `tea` installed, you can replace all instances of `sh <(curl tea.xyz)` with `tea` (and vise-versa).
+
+At this stage, Tea isn't a replacement for Homebrew. The biggest reason is that using Tea looks like this.
+
+	tea +identifier command args
+
+This is how you execute wget:
+
+	tea +gnu.org/wget wget http://example.com
+
+Tea will not create an alias or add wget to the PATH variable. That's because Tea is so heavily wrapped up in virtual environments and right now Tea is targeting developers. But you can do add aliases yourself.
+
+	alias wget="tea +gnu.org/wget wget"
+
+Or even better, if you're using zsh, you can put this in your .zshrc or something (I don't know how it handles spaces yet).
+
+	function command_not_found_handler {
+		found=`(ls ~/.tea/*/*/v\*/bin/"$1") 2>/dev/null`
+		if [[ -x $found ]]; then
+			set -- "${@:2}"
+			$found $@
+		else
+			echo "Command Not Found: $1"
+		fi
+	}
+
+Or you can even do this.
+
+	echo "#!/bin/sh\ntea +gnu.org/wget wget $*" >/usr/local/bin/wget
+
+I don't think you can add Tea's paths to the PATH variable because there isn't one path. Each item is split into it's domain and versions and it looks like they each have their own bin directory. Again, this is how virtual environments work.
+
+I believe for developers, the different virtual environments are activated with zsh directory hooks. I don't know how that works yet.
 
 ## Notes from  2022-10-14 webcast.
 
@@ -47,3 +83,19 @@ Tea is still pre-release, but you can try it out (I suggest doing it in a Docker
 If you run that command it downloads files to /tmp and runs from there. Pretty nifty.
 
 This will install tea: `sh <(curl tea.xyz)`
+
+## Testing executable markdown.
+
+Test this by running `sh <(curl tea.xyz) https://github.com/magnusviri/tea-test/blob/main/README.md`. It's currently not working or I'm doing something wrong.
+
+# Getting Started
+
+    echo "test 2"
+
+## Getting Started
+
+    echo "test 3"
+
+## Something else
+
+    echo "test 4"
