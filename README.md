@@ -8,7 +8,7 @@ Tea CLI is written in TypeScript and compiled to binary using deno (https://deno
 
 Tea installs to ~/.tea, sandboxed. It sandboxes throughout. It was written as virtual environment manager first. That way you can have multiple versions of the same software installed. This can be changed with env vars. Everything is compiled to be relocatable (this wasn't easy). They are activating virtual environments by using zsh directory hooks.
 
-Tea doesn't need to be installed. If you run it from the web (`sh <(curl tea.xyz) ...`), it will create an environment in /tmp (which is usually deleted periodically, I think on macOS it is cleaned out when you reboot).
+Tea doesn't need to be installed. If you run it from the web (`sh <(curl tea.xyz) ...`), it will create an environment in /tmp (which is usually deleted periodically, I think on macOS it is cleaned out when you reboot). `sh <(curl tea.xyz)` (no arguments) will install the `tea` cli. If you have `tea` installed, you can replace all instances of `sh <(curl tea.xyz)` with `tea` (and vise-versa).
 
 On macOS, Xcode Command Line Tools isn't required if the package doesn't need to be compiled to install or run it. If the package needs to be compiled, Tea comes with a compiler but it works better with Apple's and it will prompt you to use it.
 
@@ -19,8 +19,6 @@ Private pantries are possible. Tea has their own internal QA server for testing 
 Remuneration: Tea tokens isn't all about earning money. Remuneration can also be passed 100% to it's dependencies or donated to charity.
 
 I think "universal interpretation" means that it can install whatever interpreter is required for a script. So `tea +python.org ./test.py` will install python if it's missing, then it will launch test.py and pass it to python.
-
-Note: You use `sh <(curl tea.xyz)` to install the `tea` cli or to run it without installing. If you have `tea` installed, you can replace all instances of `sh <(curl tea.xyz)` with `tea` (and vise-versa).
 
 At this stage, Tea isn't a replacement for Homebrew. The biggest reason is that using Tea looks like this.
 
