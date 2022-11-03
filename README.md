@@ -18,7 +18,21 @@ Private pantries are possible. Tea has their own internal QA server for testing 
 
 Remuneration: Tea tokens isn't all about earning money. Remuneration can also be passed 100% to it's dependencies or donated to charity.
 
-I think "universal interpretation" means that it can install whatever interpreter is required for a script. So `tea +python.org ./test.py` will install python if it's missing, then it will launch test.py and pass it to python.
+I think "universal interpretation" means that it can install whatever interpreter is required for a script. So `tea +python.org ./test.py` will install python if it's missing, then it will launch test.py and pass it to python. Here's some examples of running python code. The following will print "Hi" using Python.
+
+	echo 'print("hi") | tea +python.org python
+
+To exexute a python script, do the following.
+
+	tea +python.org ./script.py
+
+And this is the script:
+
+	#!/usr/bin/env python
+	
+	print("Hi")
+
+I think `+python.org` will install python or add python to the path.
 
 At this stage, Tea isn't a replacement for Homebrew. The biggest reason is that using Tea looks like this.
 
