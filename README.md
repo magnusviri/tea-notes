@@ -6,7 +6,9 @@ My Tea.xyz notes (I should have this on my website but it's here for now).
 
 Tea CLI is written in TypeScript and compiled to binary using deno (https://deno.land/).
 
-Tea installs to ~/.tea, sandboxed. It sandboxes throughout. It was written as virtual environment manager first. That way you can have multiple versions of the same software installed. This can be changed with env vars. Everything is compiled to be relocatable (this wasn't easy). They are activating virtual environments by using zsh directory hooks.
+Tea installs to ~/.tea, sandboxed. The location can be changed with env vars. Everything is compiled to be relocatable (this wasn't easy).
+
+It sandboxes throughout. It was written as virtual environment manager first. That way you can have multiple versions of the same software installed. They are activating virtual environments by using zsh directory hooks.
 
 Tea doesn't need to be installed. If you run it from the web (`sh <(curl tea.xyz) ...`), it will create an environment in /tmp (which is usually deleted periodically, I think on macOS it is cleaned out when you reboot). `sh <(curl tea.xyz)` (no arguments) will install the `tea` cli. If you have `tea` installed, you can replace all instances of `sh <(curl tea.xyz)` with `tea` (and vise-versa).
 
