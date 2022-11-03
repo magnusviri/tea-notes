@@ -22,15 +22,15 @@ I think "universal interpretation" means that it can install whatever interprete
 
 	echo 'print("hi")' | tea +python.org python
 
-To exexute a python script, do the following.
-
-	tea +python.org ./script.py
-
-And this is the script:
+Here is a script (be sure to `chmod +x` the script):
 
 	#!/usr/bin/env python
 	
 	print("Hi")
+
+To exexute they python script, do the following.
+
+	tea +python.org ./script.py
 
 I think `+python.org` will install python or add python to the path.
 
