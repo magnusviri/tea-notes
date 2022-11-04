@@ -4,6 +4,24 @@ My Tea.xyz notes (I should have this on my website but it's here for now).
 
 A big reason I kept these notes is because the [Tea CLI](https://github.com/teaxyz/cli) was private. It's public now and explains a lot of what is in my notes. You should probably read the CLI readme first.
 
+## CLI notes
+
+They leave https off everything, but you should use it. Install Tea.
+
+	sh <(curl https://tea.xyz)
+
+Install Tea quietly.
+
+	sh <(curl https://tea.xyz) -s
+
+or
+
+	YES=1 sh <(curl https://tea.xyz)
+
+To specify the location of Tea.
+
+	TEA_PREFIX=/opt/tea sh <(curl https://tea.xyz)
+
 ## Notes from  2022-11-03 AMA.
 
 Tea CLI is written in TypeScript and compiled to binary using deno (https://deno.land/).
