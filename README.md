@@ -4,9 +4,11 @@ My Tea.xyz notes (I should have this on my website but it's here for now).
 
 A big reason I kept these notes is because the [Tea CLI](https://github.com/teaxyz/cli) was private. It's public now and explains a lot of what is in my notes. You should probably read the CLI readme first.
 
-## CLI notes
+## Installing Tea
 
-They leave https off everything, but you should use it. Install Tea.
+The Tea.xyz folks leave "https://" off all of their examples, but you should use it.
+
+Install Tea to ~/.tea
 
 	sh <(curl https://tea.xyz)
 
@@ -21,6 +23,61 @@ or
 To specify the location of Tea.
 
 	TEA_PREFIX=/opt/tea sh <(curl https://tea.xyz)
+
+## Tea usage
+
+Basic idea.
+
+	tea +pkg command args
+
+Execute wget:
+
+	tea +gnu.org/wget wget http://example.com
+
+Run some Python
+
+	echo 'print("hi")' | tea +python.org python
+
+Run a Python script. The file "script.py":
+
+	#!/usr/bin/env python
+	
+	print("Hi")
+
+Run it:
+
+	tea +python.org ./script.py
+
+## Aliases/links/etc
+
+Tea will not create an alias, link, or modify the PATH variable. So Tea installed tools can't be found if you don't execute them with `tea`! That's because Tea is so heavily wrapped up in virtual environments and right now Tea is targeting developers and I believe developers are used to this behavior (I'm doing some Python development and it seems to be "normal" to have to "activate" virtual enviroments before I can do anything).
+
+But you can add aliases/links yourself.
+
+	alias wget="tea +gnu.org/wget wget"
+
+Or even better, if you're using zsh, you can put this in your .zshrc or something (I don't know how it handles spaces yet).
+
+	function command_not_found_handler {
+		if [ -z "${TEA_PREFIX+1}" ]; then
+			TEA_PREFIX=~/.tea
+		fi
+		found=`(ls $TEA_PREFIX/**/v\\*/bin/"$1") 2>/dev/null`
+		if [[ -x $found ]]; then
+			set -- "${@:2}"
+			$found $@
+		else
+			echo "Command Not Found: $1"
+		fi
+	}
+
+Or you can even do this.
+
+	echo "#!/bin/sh\ntea +gnu.org/wget wget $*" >/usr/local/bin/wget
+
+I don't think you can add Tea's paths to the PATH variable because there isn't one path. Each item is split into it's domain and versions and it looks like they each have their own bin directory. Again, this is how virtual environments work.
+
+I believe for developers, the different virtual environments are activated with zsh directory hooks. I don't know how that works yet.
 
 ## Notes from  2022-11-03 AMA.
 
