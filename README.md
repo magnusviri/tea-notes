@@ -65,16 +65,26 @@ I'm leaning towards creating a custom /usr/local/bin/tea and linking all the too
 	if [ -z "${TEA_PREFIX+1}" ]; then
 		TEA_PREFIX=~/.tea
 	fi
-
+	tea="$TEA_PREFIX/tea.xyz/v*/bin/tea"
+	echo "$tea"
 	case $0 in
 		/usr/local/bin/tea)
-			$TEA_PREFIX/tea.xyz/v\*/bin/tea $*
+			"$tea" $*
 		;;
-		/usr/local/bin/wget)
-			$TEA_PREFIX/tea.xyz/v\*/bin/tea +gnu.org/wget wget $*
+		/usr/local/bin/curl)
+			"$tea" +curl.se curl $*
+		;;
+		/usr/local/bin/go)
+			"$tea" +go.dev go $*
+		;;
+		/usr/local/bin/ipfs)
+			"$tea" +ipfs.tech ipfs $*
 		;;
 		/usr/local/bin/jq)
-			$TEA_PREFIX/tea.xyz/v\*/bin/tea +stedolan.github.io/jq jq $*
+			"$tea" +stedolan.github.io/jq jq $*
+		;;
+		/usr/local/bin/wget)
+			"$tea" +gnu.org/wget wget $*
 		;;
 		*)
 			echo "tea doesn't know $0"
