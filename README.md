@@ -48,15 +48,61 @@ Run it:
 
 	tea +python.org ./script.py
 
-## Aliases/links/etc
+## Running tea packages without calling `tea`
 
-Tea will not create an alias, link, or modify the PATH variable. So Tea installed tools can't be found if you don't execute them with `tea`! That's because Tea is so heavily wrapped up in virtual environments and right now Tea is targeting developers and I believe developers are used to this behavior (I'm doing some Python development and it seems to be "normal" to have to "activate" virtual enviroments before I can do anything).
+Tea will not create an alias, link, or modify the PATH variable. So Tea installed tools can't be found if you don't execute them with `tea`! That's because Tea is so heavily wrapped up in virtual environments and right now Tea is targeting developers and I believe developers are used to this behavior. I'm doing some Python development and it seems to be "normal" to have to "activate" virtual enviroments before I can do anything.
 
-But you can add aliases/links yourself.
+You can't add Tea's paths to the PATH variable because there isn't one path. Each item is split into it's domain and versions and it looks like they each have their own bin directory. I'm pretty sure GLOBs wont work in the path.
+
+Here's some ideas to solve this.
+
+### Custom /usr/local/bin/tea
+
+I'm leaning towards creating a custom /usr/local/bin/tea and linking all the tools I want to it. I'm not too sure this will scale well though. This is my /usr/local/bin/tea
+
+	#!/bin/sh
+
+	if [ -z "${TEA_PREFIX+1}" ]; then
+		TEA_PREFIX=~/.tea
+	fi
+
+	case $0 in
+		/usr/local/bin/tea)
+			$TEA_PREFIX/tea.xyz/v\*/bin/tea $*
+		;;
+		/usr/local/bin/wget)
+			$TEA_PREFIX/tea.xyz/v\*/bin/tea +gnu.org/wget wget $*
+		;;
+		/usr/local/bin/jq)
+			$TEA_PREFIX/tea.xyz/v\*/bin/tea +stedolan.github.io/jq jq $*
+		;;
+		*)
+			echo "tea doesn't know $0"
+			exit 1
+		;;
+	esac
+
+Then for each of my commands I link them to tea.
+
+	ln -s tea /usr/local/bin/jq
+
+I tried `tea -X`, but if tea hasn't installed the package, then `tea` will actually execute the link at /usr/local/bin, which causes the script to run all over, so it gets into an endless loop. I'm sure over time a better solution will come up.
+
+### Stub file
+
+This is very similar to the above method. I like the above method more because there's only one file to edit, and it is easy to find all of the tea stuff, just find all the links to /usr/local/bin/tea.
+
+	echo "#!/bin/sh\ntea +gnu.org/wget wget $*" >/usr/local/bin/wget
+
+### Alias
+
+Put this code in ~/.zshrc.
 
 	alias wget="tea +gnu.org/wget wget"
 
-Or even better, if you're using zsh, you can put this in your .zshrc or something (I don't know how it handles spaces yet).
+### zsh command_not_found_handler
+
+Put this in ~/.zshrc. I don't know how it handles spaces. The other problem with it is that `which` doesn't work with it.
 
 	function command_not_found_handler {
 		if [ -z "${TEA_PREFIX+1}" ]; then
@@ -70,14 +116,6 @@ Or even better, if you're using zsh, you can put this in your .zshrc or somethin
 			echo "Command Not Found: $1"
 		fi
 	}
-
-Or you can even do this.
-
-	echo "#!/bin/sh\ntea +gnu.org/wget wget $*" >/usr/local/bin/wget
-
-I don't think you can add Tea's paths to the PATH variable because there isn't one path. Each item is split into it's domain and versions and it looks like they each have their own bin directory. Again, this is how virtual environments work.
-
-I believe for developers, the different virtual environments are activated with zsh directory hooks. I don't know how that works yet.
 
 ## Notes from  2022-11-03 AMA.
 
