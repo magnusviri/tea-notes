@@ -66,7 +66,7 @@ I'm leaning towards creating a custom /usr/local/bin/tea and linking all the too
 		TEA_PREFIX=~/.tea
 	fi
 	tea="$TEA_PREFIX/tea.xyz/v*/bin/tea"
-	echo "$tea"
+
 	case $0 in
 		/usr/local/bin/tea)
 			"$tea" $*
