@@ -213,18 +213,31 @@ If you run that command it downloads files to /tmp and runs from there. Pretty n
 
 This will install tea: `sh <(curl tea.xyz)`
 
-## Testing executable markdown.
+## Executable markdown
 
-Test this by running `sh <(curl tea.xyz) https://github.com/magnusviri/tea-notes/blob/main/README.md`. It's currently not working or I'm doing something wrong.
+Running `sh <(curl tea.xyz) https://github.com/magnusviri/tea-notes/blob/main/README.md` will search this document and do the following.
 
-# Getting Started
+- Searches for `/^#+\s+${arg[0].replaceAll(/ /, "-")}\s*$/i`
+- Executes a block delineated by `/^```sh\s*$/ and /^```\s*$/`
 
-    echo "test 2"
+It will execute this:
 
-## Getting Started
+### Getting Started
 
-    echo "test 3"
+```
+echo "test 1"
+```
 
-## Something else
+#### Getting Started
 
-    echo "test 4"
+```
+echo "test 2"
+```
+
+### Test3
+
+Adding an argument `sh <(curl tea.xyz) https://github.com/magnusviri/tea-notes/blob/main/README.md Test3` will search this document for the argument and execute the code block.
+
+```
+echo "test 3"
+```
