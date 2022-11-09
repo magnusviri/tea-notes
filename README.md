@@ -4,50 +4,6 @@ My Tea.xyz notes (I should have this on my website but it's here for now).
 
 A big reason I kept these notes is because the [Tea CLI](https://github.com/teaxyz/cli) was private. It's public now and explains a lot of what is in my notes. You should probably read the CLI readme first.
 
-## Installing Tea
-
-The Tea.xyz folks leave "https://" off all of their examples, but you should use it.
-
-Install Tea to ~/.tea
-
-	sh <(curl https://tea.xyz)
-
-Install Tea quietly.
-
-	sh <(curl https://tea.xyz) -s
-
-or
-
-	YES=1 sh <(curl https://tea.xyz)
-
-To specify the location of Tea.
-
-	TEA_PREFIX=/opt/tea sh <(curl https://tea.xyz)
-
-## Tea usage
-
-Basic idea.
-
-	tea +pkg command args
-
-Execute wget:
-
-	tea +gnu.org/wget wget http://example.com
-
-Run some Python
-
-	echo 'print("hi")' | tea +python.org python
-
-Run a Python script. The file "script.py":
-
-	#!/usr/bin/env python
-	
-	print("Hi")
-
-Run it:
-
-	tea +python.org ./script.py
-
 ## Running tea packages without calling `tea`
 
 Tea will not create an alias, link, or modify the PATH variable. So Tea installed tools can't be found if you don't execute them with `tea`! That's because Tea is so heavily wrapped up in virtual environments and right now Tea is targeting developers and I believe developers are used to this behavior. I'm doing some Python development and it seems to be "normal" to have to "activate" virtual enviroments before I can do anything.
