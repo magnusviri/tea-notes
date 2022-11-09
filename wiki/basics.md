@@ -79,7 +79,7 @@ Tea will solve this problem by immutably publishing packages on the [IPFS](https
 
 #### Unfunded or abandoned projects
 
-Although open source did make it possible to commercialize open source software, it only did so for companies with businessmen. A huge part of the open source community are individuals who write code in their free time and have no way to receive monetary compensation. Because of this, it is hard to keep the projects updated and secure. Many open source projects are completely abandoned, including some written by the author of this paragraph!
+Although open source did make it possible to commercialize open source software, it only did so for companies with businessmen. A huge part of the open source community are individuals who write code in their free time. No matter how generous people are, everyone has to eat and that requires money. Lack of funding has led to many abandoned open source projects, including some written by the author of this paragraph! And lack of funds makes it hard for generous developers to give projects the time they deserve.
 
 The best example of an unfunded project that was critical to many organizations is Log4J. At the end of 2021, [one of the most serious security vulnerabilities ever](https://en.wikipedia.org/wiki/Log4Shell) was discovered in Log4J. The Log4J developers fixed the bug, but the developers received a lot of [hate](https://www.franzoni.eu/log4j-haters-please/).
 
