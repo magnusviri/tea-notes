@@ -57,7 +57,7 @@ At first, there were only a few people who coded and work moved slowly. Installi
 
 One very good example of this was called "[DLL Hell](https://en.wikipedia.org/wiki/DLL_Hell)" on Windows computers during the 1990's. In general, this is called "[Dependency Hell](https://en.wikipedia.org/wiki/Dependency_hell)". There have been many solutions to this problem for end users, but developers still struggle with this problem.
 
-One solution for developers is virtualizing the kernel and installing  different library versions in containers (Docker). Another is virtual environments and version locking. An example of this is [npm](https://en.wikipedia.org/wiki/Npm_(software).
+One solution for developers is virtualizing the kernel and installing  different library versions in containers (Docker). Another is virtual environments and version locking. An example of this is [npm](https://en.wikipedia.org/wiki/Npm_(software)).
 
 Tea offers a solution to this problem by using virtual environments.
 
