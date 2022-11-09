@@ -53,7 +53,7 @@ This is a very quick introduction to the computer history that directly led to T
 
 To understand why Tea is significant, it helps to understand how we got here. When computers first started, developers wrote code and shared it with each other. They called the shared code libraries. When someone else used a shared library, they would call the library a dependency, because their project couldn't run without that library. There have always been 2 issues, installing and version control.
 
-At first, there were only a few people who coded and work moved slowly. Installing and version control were not very good, except the developers were more skilled, so it wasn't as big of an issue. As more and more people became developers and as the pace of software development moved faster and faster, installing and version control became bigger and bigger problems.
+At first, there were only a few people who coded and work moved slowly. Installing and version control was hard, except the developers were more skilled, so it wasn't as big of an issue. As more and more people became developers and as the pace of software development moved faster and faster, installing and version control became bigger and bigger problems.
 
 One very good example of this was called "[DLL Hell](https://en.wikipedia.org/wiki/DLL_Hell)" on Windows computers during the 1990's. In general, this is called "[Dependency Hell](https://en.wikipedia.org/wiki/Dependency_hell)". There have been many solutions to this problem for end users, but developers still struggle with this problem.
 
