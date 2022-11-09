@@ -71,7 +71,7 @@ The [GNU](https://en.wikipedia.org/wiki/GNU) project existed before Netscape but
 
 So at the same time that Netscape went Open Source, the term, "Open Source" was created, which was a business friendly term. But the desire to make Open Source profitable extended far beyond it's name. They were successful because now we have Open Source companies like Red Hat, Canonical, and Hashicorp and we have Open Source products like Apache, MySQL, WordPress, and Elasticsearch. GitHub and GitLab are also Open Source havens.
 
-### Nebraska Man
+#### Nebraska Man
 
 However, there are still a few problems. One problem is jokingly called the "[Nebraska Man](https://tea.xyz/nebraska-man/)" problem (not [this Nebraska Man](https://en.wikipedia.org/wiki/Nebraska_Man)). It comes from an XKCD comic titled "[Dependency](https://xkcd.com/2347/)". It refers to the day that Azer Koçulu unpublished his npm project named "[Left-pad](https://medium.com/lessons-from-history/the-man-who-broke-the-internet-by-deleting-11-lines-of-code-15b8f6f6f4c2)". Many websites failed because of it, including Netflix, Facebook, and Spotify.
 
@@ -79,7 +79,7 @@ As far as I know, nobody has tried to solve this problem.
 
 Tea will solve this problem by immutably publishing packages on the [IPFS](https://en.wikipedia.org/wiki/InterPlanetary_File_System). This mechanism is still not set up.
 
-### Unfunded or abandoned projects
+#### Unfunded or abandoned projects
 
 Although OpenSource did make it possible to commercialize Open Source software, it only did so for companies with businessmen. A huge part of the Open Source community are individuals who write code in their free time and have no way to receive monetary compensation. Because of this, it is hard to keep the projects updated and secure. Many Open Source projects are completely abandoned, including some written by the author of this paragraph!
 
