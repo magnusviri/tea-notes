@@ -83,6 +83,6 @@ Although open source did make it possible to commercialize open source software,
 
 The best example of an unfunded project that was critical to many organizations is Log4J. At the end of 2021, [one of the most serious security vulnerabilities ever](https://en.wikipedia.org/wiki/Log4Shell) was discovered in Log4J. The Log4J developers fixed the bug, but the developers received a lot of [hate](https://www.franzoni.eu/log4j-haters-please/).
 
-One solution to this problem is donations. For example, [GitHub Sponsors](https://github.com/sponsors) attempts make it possible to fund open source projects. However, these types of sponsorships only goes to one project or developer, not to the dependencies.
+One solution to this problem is donations. For example, [GitHub Sponsors](https://github.com/sponsors) attempts to make it possible to fund open source projects. However, these types of sponsorships only go to one project or developer, not to the dependencies.
 
 Tea will solve this with a Blockchain graph and NFTs. This feature should be released in 2023, and not much is known about it at this time.
