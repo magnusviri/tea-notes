@@ -14,39 +14,10 @@ Here's some ideas to solve this.
 
 ### Custom /usr/local/bin/tea
 
-I'm leaning towards creating a custom /usr/local/bin/tea and linking all the tools I want to it. I'm not too sure this will scale well though. This is my /usr/local/bin/tea
+I'm leaning towards creating a custom /usr/local/bin/tea and linking all the tools I want to it. I'm not too sure this will scale well though. 
 
-	#!/bin/sh
 
-	if [ -z "${TEA_PREFIX+1}" ]; then
-		TEA_PREFIX=~/.tea
-	fi
-	tea="$TEA_PREFIX/tea.xyz/v*/bin/tea"
-
-	case $0 in
-		/usr/local/bin/tea)
-			"$tea" $*
-		;;
-		/usr/local/bin/curl)
-			"$tea" +curl.se curl $*
-		;;
-		/usr/local/bin/go)
-			"$tea" +go.dev go $*
-		;;
-		/usr/local/bin/ipfs)
-			"$tea" +ipfs.tech ipfs $*
-		;;
-		/usr/local/bin/jq)
-			"$tea" +stedolan.github.io/jq jq $*
-		;;
-		/usr/local/bin/wget)
-			"$tea" +gnu.org/wget wget $*
-		;;
-		*)
-			echo "tea doesn't know $0"
-			exit 1
-		;;
-	esac
+Here is my [/usr/local/bin/tea](https://github.com/magnusviri/tea-notes/blob/main/usr/local/bin/tea)
 
 Then for each of my commands I link them to tea.
 
