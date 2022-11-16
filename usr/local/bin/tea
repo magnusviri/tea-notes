@@ -1,0 +1,46 @@
+#!/bin/sh
+
+if [ -z "${TEA_PREFIX+1}" ]; then
+	TEA_PREFIX=~/.tea
+fi
+tea="$TEA_PREFIX/tea.xyz/v*/bin/tea"
+
+if [ ! -e "$tea" ]; then
+	PATH=`echo $PATH | sed -e 's#/usr/local/bin:##g'`
+	fallback=$(which $(basename $0))
+	if [ -x "$fallback" ]; then
+		"$fallback" $*
+		exit
+	fi
+fi
+
+case $0 in
+	/usr/local/bin/tea)
+		"$tea" $*
+	;;
+	/usr/local/bin/curl)
+		"$tea" +curl.se curl $*
+	;;
+	/usr/local/bin/go)
+		"$tea" +go.dev go $*
+	;;
+	/usr/local/bin/ipfs)
+		"$tea" +ipfs.tech ipfs $*
+	;;
+	/usr/local/bin/jq)
+		"$tea" +stedolan.github.io/jq jq $*
+	;;
+	/usr/local/bin/pipenv)
+		"$tea" +pip.pypa.io pipenv $*
+	;;
+	/usr/local/bin/python)
+		"$tea" +python.org python $*
+	;;
+	/usr/local/bin/wget)
+		"$tea" +gnu.org/wget wget $*
+	;;
+	*)
+		echo "tea doesn't know $0"
+		exit 1
+	;;
+esac
