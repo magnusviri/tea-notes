@@ -100,7 +100,7 @@ This will run the latest python 3.x.
 
 ## Tea PATH
 
-Note, tea doesn't add anything it installs to the PATH. That means you must use tea to run stuff installed by tea unless you do something yourself. You can't just add a single bin directory either. Each item is split into it's domain and versions and they each have their own bin directory.
+Note, tea doesn't add anything it installs to the PATH. That means you must use tea to run stuff installed by tea or fix this yourself. You can't just add a single bin directory to the PATH either. Each item is split into it's domain and versions and they each have their own bin directory.
 
 Here's some ideas to solve this.
 
