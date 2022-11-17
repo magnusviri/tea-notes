@@ -10,7 +10,7 @@ Installing is very easy. Here are the different ways you can install it. Note, a
 
 The tea installer is located at https://tea.xyz (when loaded by curl, it returns the installer instead of the webpage).
 
-When you install tea using the installer, it will ask if you want to create a symlink in /usr/local/bin. It will also ask if it can modify ~/.zshrc. Basies those 2 changes, tea doesn't change anything outside of it's directory.
+When you install tea using the installer, it will ask if you want to create a symlink in /usr/local/bin. It will also ask if it can modify ~/.zshrc. Basides those 2 changes, tea doesn't change anything outside of it's directory.
 
 Install Tea to ~/.tea
 
