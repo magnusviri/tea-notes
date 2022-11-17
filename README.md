@@ -2,20 +2,111 @@
 
 My Tea.xyz notes (I should have this on my website but it's here for now).
 
-A big reason I kept these notes is because the [Tea CLI](https://github.com/teaxyz/cli) was private. It's public now and explains a lot of what is in my notes. You should probably read the CLI readme first.
+You should probably read the [CLI readme](https://github.com/teaxyz/cli) first.
 
-## Running tea packages without calling `tea`
+## Installing Tea
 
-Tea will not create an alias, link, or modify the PATH variable. So Tea installed tools can't be found if you don't execute them with `tea`! That's because Tea is so heavily wrapped up in virtual environments and right now Tea is targeting developers and I believe developers are used to this behavior. I'm doing some Python development and it seems to be "normal" to have to "activate" virtual enviroments before I can do anything.
+Installing is very easy. Here are the different ways you can install it. Note, all the docs leave off the "https://", but you really should use it. To make it easier, all of my examples have it.
 
-You can't add Tea's paths to the PATH variable because there isn't one path. Each item is split into it's domain and versions and it looks like they each have their own bin directory. I'm pretty sure GLOBs wont work in the path.
+The tea installer is located at https://tea.xyz (when loaded by curl, it returns the installer instead of the webpage).
+
+When you install tea using the installer, it will ask if you want to create a symlink in /usr/local/bin. It will also ask if it can modify ~/.zshrc. Basies those 2 changes, tea doesn't change anything outside of it's directory.
+
+Install Tea to ~/.tea
+
+	sh <(curl https://tea.xyz)
+
+Install Tea quietly.
+
+	sh <(curl https://tea.xyz) -s
+
+or
+
+	YES=1 sh <(curl https://tea.xyz)
+
+Specify the location of Tea.
+
+	TEA_PREFIX=/opt/tea sh <(curl https://tea.xyz)
+
+Update tea. It's the same as installing.
+
+	sh <(curl https://tea.xyz)
+
+## Basic Tea Usage
+
+Tea is not like other package managers. It's more like an environment manager.
+
+In it's most basic form, Tea will install a package if needed and run a command or open a REPL with the package in the PATH.
+
+	tea +pkg
+
+To avoid the REPL, specify a command (and optional args).
+
+	tea +pkg command [args]
+
+Example, execute wget.
+
+	tea +gnu.org/wget wget http://example.com
+
+Example, run some Python.
+
+	echo 'print("hi")' | tea +python.org python
+
+Example, run a Python script. Here is a file named "script.py".
+
+```
+#!/usr/bin/env python
+
+print("Hi")
+```
+
+Run it like this.
+
+	tea +python.org ./script.py
+
+If a file ends in ".py", tea will automatically add +python.org. It helps to understand what is going on behind the scenes though, which is why I explained everything. Run it like this.
+
+	tea ./script.py
+
+## Use Tea to Install Something
+
+Right now there is no difference between running something with Tea and installing something and running it. So if you only want to install something, then run a command that doesn't do anything.
+
+Example, install Python if missing.
+
+	tea +python.org python --version
+
+Or 
+
+	tea +python.org echo ""
+
+## Intermediate Tea usage
+
+You can specify multiple packages and create a REPL with those dependencies in the PATH.
+
+	tea +invisible-island.net/ncurses +sourceware.org/bzip2 +tea.xyz/gx/cc +gnu.org/make
+
+Specify a specific version of a package (note, check [issue 156](https://github.com/teaxyz/cli/issues/156) to see if this works yet).
+
+	tea +python.org=3.10.8 python
+
+Specify a minimum version. This will run the latest python 3.10.x.
+
+	tea +python.org^3.10.0 python
+
+This will run the latest python 3.x.
+
+	tea +python.org^3.10 python
+
+## Tea PATH
+
+Note, tea doesn't add anything it installs to the PATH. That means you must use tea to run stuff installed by tea unless you do something yourself. You can't just add a single bin directory either. Each item is split into it's domain and versions and they each have their own bin directory.
 
 Here's some ideas to solve this.
 
 ### Custom /usr/local/bin/tea
 
-I'm leaning towards creating a custom /usr/local/bin/tea and linking all the tools I want to it. I'm not too sure this will scale well though. 
-
+I'm leaning towards creating a custom /usr/local/bin/tea and linking all the tools I want to it. I'm not too sure this will scale well though.
 
 Here is my [/usr/local/bin/tea](https://github.com/magnusviri/tea-notes/blob/main/usr/local/bin/tea)
 
@@ -54,127 +145,44 @@ Put this in ~/.zshrc. I don't know how it handles spaces. The other problem with
 		fi
 	}
 
-## Notes from  2022-11-03 AMA.
+## History of Computing
 
-Tea CLI is written in TypeScript and compiled to binary using deno (https://deno.land/).
+This is a very quick introduction to the computer history that directly led to Tea.
 
-Tea installs to ~/.tea, sandboxed. The location can be changed with env vars. Everything is compiled to be relocatable (this wasn't easy).
+### Libraries
 
-It sandboxes throughout. It was written as virtual environment manager first. That way you can have multiple versions of the same software installed. They are activating virtual environments by using zsh directory hooks.
+To understand why Tea is significant, it helps to understand how we got here. When computers first started, developers wrote code and shared it with each other. They called the shared code libraries. When someone else used a shared library, they would call the library a dependency, because their project couldn't run without that library. There have always been 2 issues, installing and version control.
 
-Tea doesn't need to be installed. If you run it from the web (`sh <(curl tea.xyz) ...`), it will create an environment in /tmp (which is usually deleted periodically, I think on macOS it is cleaned out when you reboot). `sh <(curl tea.xyz)` (no arguments) will install the `tea` cli. If you have `tea` installed, you can replace all instances of `sh <(curl tea.xyz)` with `tea` (and vise-versa).
+At first, there were only a few people who coded and work moved slowly. Installing and version control was hard, except the developers were more skilled, so it wasn't as big of an issue. As more and more people became developers and as the pace of software development moved faster and faster, installing and version control became bigger and bigger problems.
 
-On macOS, Xcode Command Line Tools isn't required if the package doesn't need to be compiled to install or run it. If the package needs to be compiled, Tea comes with a compiler but it works better with Apple's and it will prompt you to use it.
+In general, this is called "[Dependency Hell](https://en.wikipedia.org/wiki/Dependency_hell)". One very good example of this  on Windows computers in the 1990's was called "[DLL Hell](https://en.wikipedia.org/wiki/DLL_Hell)". There have been many solutions to this problem for end users, but developers still struggle with this problem.
 
-Tea can "execute" markdown. If a markdown file includes a "# Getting Started" section (I'm not sure if it's "#" or "##" yet), then `sh <(curl tea.xyz) https://github.com/my/project` will execute the code in that section. I actually couldn't get this to work yet.
+One solution for developers is virtualizing the kernel and installing  different library versions in containers (Docker). Another is virtual environments and version locking. An example of this is [npm](https://en.wikipedia.org/wiki/Npm_(software)).
 
-Private pantries are possible. Tea has their own internal QA server for testing out stuff before they deploy it.
+Tea offers a solution to this problem by using virtual environments.
 
-Remuneration: Tea tokens isn't all about earning money. Remuneration can also be passed 100% to it's dependencies or donated to charity.
+### Open Source
 
-I think "universal interpretation" means that it can install whatever interpreter is required for a script. So `tea +python.org ./test.py` will install python if it's missing, then it will launch test.py and pass it to python. Here's some examples of running python code. The following will print "Hi" using Python.
+In 1998, the U.S. Department of Justice and the Attorneys General of twenty U.S. states (and the District of Columbia) [sued Microsoft](https://en.wikipedia.org/wiki/United_States_v._Microsoft_Corp.) for illegally thwarting competition in order to protect and extend its software monopoly. There were so many examples of Microsoft breaking the law that the prosecutors actually were overwhelmed with the scope. They knew that the best way to win was to limit the scope to the most obvious illegal behaviors. Microsoft's attacks on Netscape Navigator was one of the main examples in the case. Microsoft lost the case but the punishment was a hand slap.
 
-	echo 'print("hi")' | tea +python.org python
+However, before the trial began, Netscape was already struggling to survive. In an effort to survive and combat Microsoft, Netscape went [open source](https://en.wikipedia.org/wiki/Open_source). They didn't just go open source, they coined the term. The [GNU](https://en.wikipedia.org/wiki/GNU) project existed before Netscape but they called what they were doing the "[free software movement](https://en.wikipedia.org/wiki/Free_software_movement)" ("free as in freedom, not free as in beer"). Some people did not like some of the things associated with GNU and "free software". The most relevant example is that because it had the word "free" in it's name, businesses would not take a serious look at it. So at the same time that Netscape went open source, they popularized the term "open source", which was business friendly. Linux also adopted the term.
 
-Here is a script (be sure to `chmod +x` the script):
+The desire to make open source profitable extended far beyond it's name. The open source movement and the desire to make open source commercially viable was successful. Now we have open source companies like Red Hat, Canonical, and Hashicorp. We have open source products like Apache, MySQL, WordPress, and Elasticsearch. The internet runs on Linux. GitHub and GitLab are open source havens. Microsoft even purchased GitHub and has some open source projects of their own (including Visual Studio Code).
 
-	#!/usr/bin/env python
-	
-	print("Hi")
+#### Nebraska Man
 
-To execute the python script, do the following.
+However, there are still a few problems. One problem is jokingly called the "[Nebraska Man](https://tea.xyz/nebraska-man/)" problem (not [this Nebraska Man](https://en.wikipedia.org/wiki/Nebraska_Man)). It comes from an XKCD comic titled "[Dependency](https://xkcd.com/2347/)". It refers to the day that Azer Koçulu unpublished his npm project named "[Left-pad](https://medium.com/lessons-from-history/the-man-who-broke-the-internet-by-deleting-11-lines-of-code-15b8f6f6f4c2)". Many websites failed because of it, including Netflix, Facebook, and Spotify.
 
-	tea +python.org ./script.py
+As far as I know, nobody has tried to solve this problem.
 
-The `+python.org` will install python if needed and then open a shell with the python environment activated. Tea then runs the commands that come after in that shell. So "+pkg" creates or activats a virtual environment.
+Tea will solve this problem by immutably publishing packages on the [IPFS](https://en.wikipedia.org/wiki/InterPlanetary_File_System). This mechanism is still not set up.
 
-At this stage, Tea isn't a replacement for Homebrew. The biggest reason is that using Tea looks like this.
+#### Unfunded or abandoned projects
 
-	tea +pkg command args
+Although open source did make it possible to commercialize open source software, it only did so for companies with businessmen. A huge part of the open source community are individuals who write code in their free time. No matter how generous people are, everyone has to eat and that requires money. Lack of funding has led to many abandoned open source projects, including some written by the author of this paragraph! And lack of funds makes it hard for generous developers to give projects the time they deserve.
 
-This is how you execute wget:
+The best example of an unfunded project that was critical to many organizations is Log4J. At the end of 2021, [one of the most serious security vulnerabilities ever](https://en.wikipedia.org/wiki/Log4Shell) was discovered in Log4J. The Log4J developers fixed the bug, but the developers received a lot of [hate](https://www.franzoni.eu/log4j-haters-please/).
 
-	tea +gnu.org/wget wget http://example.com
+One solution to this problem is donations. For example, [GitHub Sponsors](https://github.com/sponsors) attempts to make it possible to fund open source projects. However, these types of sponsorships only go to one project or developer, not to the dependencies.
 
-Tea will not create an alias or add wget to the PATH variable. That's because Tea is so heavily wrapped up in virtual environments and right now Tea is targeting developers. But you can add aliases yourself.
-
-	alias wget="tea +gnu.org/wget wget"
-
-Or even better, if you're using zsh, you can put this in your .zshrc or something (I don't know how it handles spaces yet).
-
-	function command_not_found_handler {
-		found=`(ls ~/.tea/*/*/v\*/bin/"$1") 2>/dev/null`
-		if [[ -x $found ]]; then
-			set -- "${@:2}"
-			$found $@
-		else
-			echo "Command Not Found: $1"
-		fi
-	}
-
-Or you can even do this.
-
-	echo "#!/bin/sh\ntea +gnu.org/wget wget $*" >/usr/local/bin/wget
-
-I don't think you can add Tea's paths to the PATH variable because there isn't one path. Each item is split into it's domain and versions and it looks like they each have their own bin directory. Again, this is how virtual environments work.
-
-I believe for developers, the different virtual environments are activated with zsh directory hooks. I don't know how that works yet.
-
-## Notes from  2022-10-14 webcast.
-
-There’s 2 types of package managers. At the OS level you have apt, yum, brew, etc. These download or produce binaries. Then there are software dependency managers like npm, pip, Cargo, gems, etc. These download source code.
-
-Tea is more of an OS level package manager at this point but it aims to be both. It is attempting to simplify and unify all of these things. They are hoping to create a paradigm. Their goal is to abstract the package manager away, to create a unified package manager.
-
-No one has tried to make a funded package manager. There are a lot of package managers that started as small projects but grew so big that they needed funding. Nobody has tried to integrate package managers and so there is a lot of duplicated work in this space.
-
-They are building Tea primitives and they hope that they will become the foundation used by all kinds of tools and facilitate integrations across them. They don’t intend on “Sherlocking” software package managers like npm. They’re hoping that the dependency managers will adopt the Tea primitives.
-
-They are creating a Tea protocol that other package managers can use. The Tea protocol will be governed from Switzerland. [Zug, located 20 miles south of Zurich, is known as Crypto valley. There are about 750 Crypto companies located there. It’s the only government that accepts Bitcoin and they’ve given all of their residents crypto ID’s. Local businesses are also switching over to Bitcoin. This pattern is spreading to other parts of Switzerland like Geneva. The Swiss government is trying to become the “Blockchain Nation”.] Tea is going to use the security and renumeration features of crypto. Users don’t need to know that aspect exists.
-
-Tea is expected to launch this year (November?). Tea will deploy binaries and work on Mac and Linux, x86 and Arm (which they call AR 64). The Linux binaries will work with any Linux. They are using glibc version 23 (which is old and API stable) to compile the Linux binaries. They will support Windows as soon as possible. They also plan on supporting OS’es other than Mac, Windows, and Linux. They don’t want the OS to matter.
-
-Tea should have decentralized package registry support by launch. The decentralized blockchain package registry should be working next year. In the long term the goal is to have everything decentralized. They will also support having multiple package registries [I believe this includes private registries].
-
-Tea will have sub commands and be scriptable like npm and cargo. They want it make it so that you can install stuff from a webpage link, the command line, or in scripts.
-
-A developer lists dependencies in a recipe and Tea brings them into the environment when needed. The dependencies wont pollute your environment when you don’t need them. The Tea “database” is going to be the filesystem and it will use symlinks. You will be able to mix and match versions like npm where requirements are pinned.
-
-Package recipes will be stored in “pantries”. People will be able to host their own pantries. Tea will be able to find pantries and people won’t have to add them manually. There is a lot they can’t legally say about this until they launch.
-
-Tea is still pre-release, but you can try it out (I suggest doing it in a Docker container or something that can be thrown away).
-
-	sh <(curl tea.xyz) +charm.sh/gum gum spin -- sleep 5
-
-If you run that command it downloads files to /tmp and runs from there. Pretty nifty.
-
-This will install tea: `sh <(curl tea.xyz)`
-
-## Executable markdown
-
-Running `sh <(curl tea.xyz) https://github.com/magnusviri/tea-notes/blob/main/README.md` will search this document and do the following.
-
-- Searches for `/^#+\s+${arg[0].replaceAll(/ /, "-")}\s*$/i`
-- Executes a block delineated by `/^```sh\s*$/ and /^```\s*$/`
-
-It will execute this:
-
-### Getting Started
-
-```
-echo "test 1"
-```
-
-#### Getting Started
-
-```
-echo "test 2"
-```
-
-### Test3
-
-Adding an argument `sh <(curl tea.xyz) https://github.com/magnusviri/tea-notes/blob/main/README.md Test3` will search this document for the argument and execute the code block.
-
-```
-echo "test 3"
-```
+Tea will solve this with a Blockchain graph and NFTs. This feature should be released in 2023, and not much is known about it at this time.
