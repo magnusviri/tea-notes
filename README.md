@@ -145,6 +145,8 @@ Put this in ~/.zshrc. I don't know how it handles spaces. The other problem with
 		fi
 	}
 
+Tea now discusses this on [their page](https://github.com/teaxyz/cli#may-we-interest-you-in-a-hack). It's far simpler than what I've got though.
+
 ## History of Computing
 
 This is a very quick introduction to the computer history that directly led to Tea.
