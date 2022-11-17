@@ -18,7 +18,7 @@ Specify the location of Tea.
 
 	TEA_PREFIX=/opt/tea sh <(curl https://tea.xyz)
 
-## Tea usage
+## Basic Tea usage
 
 Tea is not like other package managers. 
 
@@ -34,16 +34,39 @@ Run some Python
 
 	echo 'print("hi")' | tea +python.org python
 
-Run a Python script. The file "script.py":
+Run a Python script. Here is a file named "script.py":
 
-	#!/usr/bin/env python
-	
-	print("Hi")
+```
+#!/usr/bin/env python
 
-Run it:
+print("Hi")
+```
+
+Run it like this.
 
 	tea +python.org ./script.py
 
+If a file ends in ".py", tea will automatically add +python.org. It helps to understand what is going on behind the scenes though, which is why I explained everything. Run it like this.
+
+	tea ./script.py
+
+## Intermediate Tea usage
+
+You can specify multiple packages and create a REPL with those dependencies in the PATH.
+
+	tea +invisible-island.net/ncurses +sourceware.org/bzip2 +tea.xyz/gx/cc +gnu.org/make
+
+Specify a specific version of a package (note, check [issue 156](https://github.com/teaxyz/cli/issues/156) to see if this works yet).
+
+	tea +python.org=3.10.8 python
+
+Specify a minimum version. This will run the latest python 3.10.x.
+
+	tea +python.org^3.10.0 python
+
+This will run the latest python 3.x.
+
+	tea +python.org^3.10 python
 
 ## History of Computing
 
