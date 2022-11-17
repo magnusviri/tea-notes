@@ -1,6 +1,6 @@
 ## Installing Tea
 
-Installing is very easy. Here are the different ways you can install it.
+Installing is very easy. Here are the different ways you can install it. Note, all the docs leave off the "https://", but you really should use it. To make it easier, all of my examples have it.
 
 Install Tea to ~/.tea
 
@@ -18,23 +18,27 @@ Specify the location of Tea.
 
 	TEA_PREFIX=/opt/tea sh <(curl https://tea.xyz)
 
-## Basic Tea usage
+## Basic Tea Usage
 
-Tea is not like other package managers. 
+Tea is not like other package managers. It's more like an environment manager.
 
-Basic idea.
+In it's most basic form, Tea will install a package if needed and run a command or open a REPL with the package in the PATH.
 
-	tea +pkg command args
+	tea +pkg
 
-Execute wget:
+To avoid the REPL, specify a command (and optional args).
+
+	tea +pkg command [args]
+
+Example, execute wget.
 
 	tea +gnu.org/wget wget http://example.com
 
-Run some Python
+Example, run some Python.
 
 	echo 'print("hi")' | tea +python.org python
 
-Run a Python script. Here is a file named "script.py":
+Example, run a Python script. Here is a file named "script.py".
 
 ```
 #!/usr/bin/env python
@@ -49,6 +53,18 @@ Run it like this.
 If a file ends in ".py", tea will automatically add +python.org. It helps to understand what is going on behind the scenes though, which is why I explained everything. Run it like this.
 
 	tea ./script.py
+
+## Use Tea to Install Something
+
+Right now there is no difference between running something with Tea and installing something and running it. So if you only want to install something, then run a command that doesn't do anything.
+
+Example, install Python if missing.
+
+	tea +python.org python --version
+
+Or 
+
+	tea +python.org echo ""
 
 ## Intermediate Tea usage
 
