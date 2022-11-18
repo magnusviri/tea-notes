@@ -16,11 +16,13 @@ Most of the things in my list are libraries installed with other tools like ca-c
 
 You can see what tea has available on [tea.xyz](https://tea.xyz).
 
-You can also list what tea has by searching the pantry. This command will just print the items available.
+You can also list the packages by searching the pantry. This command will just print the items available.
 
     find ~/.tea/tea.xyz/var/pantry/projects -name package.yml | sed -e 's/.*\/projects\/\(.*\)\/package.yml/\1/'
 
-Find what you want.
+However, packages can contain many tools. For example, if you install perl, it has [30 items](https://github.com/teaxyz/pantry.core/blob/main/projects/perl.org/package.yml) in it's bin directory. You can view the full list by finding the "provides" section in the package.yml file (e.g. `cat /opt/tea.xyz/var/pantry/projects/perl.org/package.yml`). I'm sure in time there will be an easier way to do this. You can also search for "- bin/" in all of the package.yml files.
+
+    find ~/.tea/tea.xyz/var/pantry/projects -name package.yml -exec grep -- "- bin/" \{\} \;
 
 ## Uninstall the brew version
 
