@@ -80,6 +80,8 @@ Or
 
 	tea +python.org echo ""
 
+There's a lot more information on installing stuff on the [replacing brew](https://github.com/magnusviri/tea-notes/blob/main/replacing-brew.md) page.
+
 ## Intermediate Tea usage
 
 You can specify multiple packages and create a REPL with those dependencies in the PATH.
@@ -113,6 +115,8 @@ Here is [/usr/local/bin/tea-helper](https://github.com/magnusviri/tea-notes/blob
 Then for each of my commands I link them to tea.
 
 	ln -s tea-helper /usr/local/bin/jq
+
+Note, the tea documentation says to use `tea -X`, but not all packages have a "provides" section and -X only works with package.yml fils that have "provides". So until that is fixed, you can't rely on `tea -X`.
 
 ### Stub file
 
