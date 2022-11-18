@@ -104,17 +104,15 @@ Note, tea doesn't add anything it installs to the PATH. That means you must use 
 
 Here's some ideas to solve this.
 
-### Custom /usr/local/bin/tea
+### /usr/local/bin/tea-helper
 
-I'm leaning towards creating a custom /usr/local/bin/tea and linking all the tools I want to it. I'm not too sure this will scale well though.
+I've created a custom /usr/local/bin/tea-helper and linking all the tools I want to it. I'm hoping this isn't a permenant solution.
 
-Here is my [/usr/local/bin/tea](https://github.com/magnusviri/tea-notes/blob/main/usr/local/bin/tea)
+Here is [/usr/local/bin/tea-helper](https://github.com/magnusviri/tea-notes/blob/main/usr/local/bin/tea-helper)
 
 Then for each of my commands I link them to tea.
 
-	ln -s tea /usr/local/bin/jq
-
-I tried `tea -X`, but if tea hasn't installed the package, then `tea` will actually execute the link at /usr/local/bin, which causes the script to run all over, so it gets into an endless loop. I'm sure over time a better solution will come up.
+	ln -s tea-helper /usr/local/bin/jq
 
 ### Stub file
 
