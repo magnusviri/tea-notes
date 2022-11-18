@@ -1,9 +1,6 @@
 #!/bin/sh
 
-if [ -z "${TEA_PREFIX+1}" ]; then
-	TEA_PREFIX=~/.tea
-fi
-tea="$TEA_PREFIX/tea.xyz/v*/bin/tea"
+tea="/usr/local/bin/tea"
 
 if [ ! -e "$tea" ]; then
 	PATH=`echo $PATH | sed -e 's#/usr/local/bin:##g'`
@@ -33,7 +30,7 @@ case $0 in
 	/usr/local/bin/pipenv)
 		"$tea" +pip.pypa.io pipenv $*
 	;;
-	/usr/local/bin/python)
+	/usr/local/bin/python3)
 		"$tea" +python.org python $*
 	;;
 	/usr/local/bin/wget)
