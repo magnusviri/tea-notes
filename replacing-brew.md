@@ -20,9 +20,11 @@ You can also list the packages by searching the pantry. This command will just p
 
     find ~/.tea/tea.xyz/var/pantry/projects -name package.yml | sed -e 's/.*\/projects\/\(.*\)\/package.yml/\1/'
 
-However, packages can contain many tools. For example, if you install perl, it has [30 items](https://github.com/teaxyz/pantry.core/blob/main/projects/perl.org/package.yml) in it's bin directory. You can view the full list by finding the "provides" section in the package.yml file (e.g. `cat /opt/tea.xyz/var/pantry/projects/perl.org/package.yml`). I'm sure in time there will be an easier way to do this. You can also search for "- bin/" in all of the package.yml files.
+However, packages can contain many tools. For example, if you install perl, it has [30 items](https://github.com/teaxyz/pantry.core/blob/main/projects/perl.org/package.yml) in it's bin directory. You can view the fuller list by finding the "provides" section in the package.yml file (e.g. `cat /opt/tea.xyz/var/pantry/projects/perl.org/package.yml`). However! Not all package.yml files have the provides section, so you don't know what it installs, for example, [curl.se](https://github.com/teaxyz/pantry.core/blob/main/projects/curl.se/package.yml). You just have to know that that package installs curl. You can also search for "- bin/" in all of the package.yml files.
 
     find ~/.tea/tea.xyz/var/pantry/projects -name package.yml -exec grep -- "- bin/" \{\} \;
+
+I'm sure in time there will be an easier way to do this. 
 
 ## Uninstall the brew version
 
