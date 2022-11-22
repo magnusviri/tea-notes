@@ -8,6 +8,10 @@ Hint: It's JavaScript in disguise.
 
 `console.log()` instead of `print()`. It's your BFF.
 
+## Learn Deno
+
+- [Manual](https://deno.land/manual)
+
 ## Compile tea
 
 Install tea if you haven't already.
