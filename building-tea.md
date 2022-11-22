@@ -11,6 +11,7 @@ Hint: It's JavaScript in disguise.
 ## Learn Deno
 
 - [Manual](https://deno.land/manual)
+- [Standard Modules](https://deno.land/std)
 
 ## Compile tea
 
