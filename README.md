@@ -88,7 +88,7 @@ You can specify multiple packages and create a REPL with those dependencies in t
 
 	tea +invisible-island.net/ncurses +sourceware.org/bzip2 +tea.xyz/gx/cc +gnu.org/make
 
-Specify a specific version of a package (note, check [issue 156](https://github.com/teaxyz/cli/issues/156) to see if this works yet).
+Specify a specific version of a package.
 
 	tea +python.org=3.10.8 python
 
