@@ -102,52 +102,13 @@ This will run the latest python 3.x.
 
 ## Tea PATH
 
-Note, tea doesn't add anything it installs to the PATH. That means you must use tea to run stuff installed by tea. That wont work for me, I need to have the tools in the PATH. I can't just add a single bin directory to the PATH either. Each item is split into it's domain and versions and they each have their own bin directory.
+Note, tea doesn't add anything it installs to the PATH. That means you must use tea to run stuff installed by tea. If you would like the stuff you install added to the path then you can do a few things. Starting with the cli v0.14.5, you can create a symlink to tea using the name of the tool you'd like.
 
-Here's some ideas to solve this.
+```
+sudo ln -s tea /usr/local/bin/wget
+```
 
-### /usr/local/bin/tea-helper
-
-I've created a custom /usr/local/bin/tea-helper and linking all the tools I want to it. I'm hoping this isn't a permenant solution.
-
-Here is [/usr/local/bin/tea-helper](https://github.com/magnusviri/tea-notes/blob/main/usr/local/bin/tea-helper)
-
-Then for each of my commands I link them to tea.
-
-	ln -s tea-helper /usr/local/bin/jq
-
-Note, the tea documentation says to use `tea -X`, but not all packages have a "provides" section and -X only works with package.yml fils that have "provides". So until that is fixed, you can't rely on `tea -X`.
-
-### Stub file
-
-This is very similar to the above method. I like the above method more because there's only one file to edit, and it is easy to find all of the tea stuff, just find all the links to /usr/local/bin/tea.
-
-	echo "#!/bin/sh\ntea +gnu.org/wget wget $*" >/usr/local/bin/wget
-
-### Alias
-
-Put this code in ~/.zshrc.
-
-	alias wget="tea +gnu.org/wget wget"
-
-### zsh command_not_found_handler
-
-Put this in ~/.zshrc. I don't know how it handles spaces. The other problem with it is that `which` doesn't work with it.
-
-	function command_not_found_handler {
-		if [ -z "${TEA_PREFIX+1}" ]; then
-			TEA_PREFIX=~/.tea
-		fi
-		found=`(ls $TEA_PREFIX/**/v\\*/bin/"$1") 2>/dev/null`
-		if [[ -x $found ]]; then
-			set -- "${@:2}"
-			$found $@
-		else
-			echo "Command Not Found: $1"
-		fi
-	}
-
-Tea now discusses this on [their page](https://github.com/teaxyz/cli#may-we-interest-you-in-a-hack). It's far simpler than what I've got though.
+That will create a symnlink for wget. And it just works!
 
 ## Executable markdown
 
