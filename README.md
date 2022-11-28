@@ -1,22 +1,29 @@
 ## tea-notes
 
-My Tea.xyz notes (I should have this on my website but it's here for now).
+My tea.xyz notes (I should have this on my website but it's here for now).
+
+Tea works in the terminal. If you don't know how to use the terminal, please do a web search for "unix terminal" and read a little bit before trying anything here.
 
 You should probably read the [CLI readme](https://github.com/teaxyz/cli) first.
 
 ## Installing Tea
 
-Installing is very easy. Here are the different ways you can install it. Note, all the docs leave off the "https://", but you really should use it. To make it easier, all of my examples have it.
+If you are on Windows, you first need to install [Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/about) (WSL).
 
-The tea installer is located at https://tea.xyz (when loaded by curl, it returns the installer instead of the webpage).
+In the macOS or Linux terminal (Windows users need to use the WSL terminal), just type this command in.
 
-When you install tea using the installer, it will ask if you want to create a symlink in /usr/local/bin. It will also ask if it can modify ~/.zshrc. Basides those 2 changes, tea doesn't change anything outside of it's directory.
+```
+sh <(curl https://tea.xyz)
+```
 
-Install Tea to ~/.tea
+The installer will ask if you want to create a symlink in /usr/local/bin. I would select yes. It will also ask if it can modify ~/.zshrc. Basides those 2 changes, tea doesn't change anything outside of it's directory.
 
-	sh <(curl https://tea.xyz)
+Tea will be installed to ~/.tea.
 
-Install Tea quietly.
+The tea installer is located at https://tea.xyz (when loaded by curl, it returns the installer instead of the webpage). 
+
+
+Here are some of the options when you install tea. For example, you can install it silently (answering yes to all the questions).
 
 	sh <(curl https://tea.xyz) -s
 
@@ -24,11 +31,11 @@ or
 
 	YES=1 sh <(curl https://tea.xyz)
 
-Specify the location of Tea.
+You can specify the location of Tea.
 
 	TEA_PREFIX=/opt/tea sh <(curl https://tea.xyz)
 
-Update tea. It's the same as installing.
+To update tea, just run the same installer.
 
 	sh <(curl https://tea.xyz)
 
