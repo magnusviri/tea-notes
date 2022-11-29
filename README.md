@@ -55,7 +55,11 @@ Example, execute wget.
 
 	tea +gnu.org/wget wget http://example.com
 
-Example, run some Python.
+You can also execute it directly.
+
+	~/.tea/gnu.org/wget/v\*/bin/wget
+
+Here's a different example. Run some Python.
 
 	echo 'print("hi")' | tea +python.org python
 
@@ -74,6 +78,35 @@ Run it like this.
 If a file ends in ".py", tea will automatically add +python.org. It helps to understand what is going on behind the scenes though, which is why I explained everything. Run it like this.
 
 	tea ./script.py
+
+## Tea PATH
+
+Note, tea doesn't add anything it installs to the PATH. As shown above, you can execute the command directly or use tea to run stuff. The easiest way to get the stuff you install with tea added to the path (starting with the cli v0.14.5) is to create a symlink to tea using the name of the tool you'd like.
+
+```
+sudo ln -s tea /usr/local/bin/wget
+```
+
+That will create a symlink for wget. And it just works!
+
+I believe we are going to need a tool to manage these though. The number of these symlinks can quickly get out of control.
+
+You can also create these symlinks in a different directory and add that directory to the PATH. 
+
+```
+mkdir ~/.tea_bin
+ln -s /usr/local/bin/tea ~/.tea_bin/tea
+ln -s tea ~/.tea_bin/wgett
+export PATH="$HOME/.tea_bin:$PATH"
+which wget
+/Users/james/.tea_bin/wget
+```
+
+To permenantly add that path to your shell (zsh) run this.
+
+```
+echo 'export PATH="$HOME/.tea_bin:$PATH"' >> ~/.zshrc
+```
 
 ## Use Tea to Install Something
 
@@ -131,17 +164,11 @@ tea +python.org=3.10.8 pip install --upgrade pip
 
 It kind of defeats the purpose of having versioned installs.
 
-## Tea PATH
-
-Note, tea doesn't add anything it installs to the PATH. That means you must use tea to run stuff installed by tea. If you would like the stuff you install added to the path then you can do a few things. Starting with the cli v0.14.5, you can create a symlink to tea using the name of the tool you'd like.
-
-```
-sudo ln -s tea /usr/local/bin/wget
-```
-
-That will create a symnlink for wget. And it just works!
+---
 
 ## Executable markdown
+
+I don't believe this works yet!
 
 Running `sh <(curl tea.xyz) https://github.com/magnusviri/tea-notes/blob/main/README.md` will search this document and do the following.
 
