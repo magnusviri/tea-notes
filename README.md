@@ -31,7 +31,7 @@ or
 
 	YES=1 sh <(curl https://tea.xyz)
 
-You can specify the location of Tea.
+You can specify the location of Tea. By default, TEA_PREFIX is "~/.tea". If you change it, remember that all examples with "~/.tea" should be replaced with your prefix.
 
 	TEA_PREFIX=/opt/tea sh <(curl https://tea.xyz)
 
@@ -89,7 +89,7 @@ Or
 
 There's a lot more information on installing stuff on the [replacing brew](https://github.com/magnusviri/tea-notes/blob/main/replacing-brew.md) page.
 
-## Intermediate Tea usage
+## Intermediate tea usage
 
 You can specify multiple packages and create a REPL with those dependencies in the PATH.
 
@@ -106,6 +106,30 @@ Specify a minimum version. This will run the latest python 3.10.x.
 This will run the latest python 3.x.
 
 	tea +python.org^3.10 python
+
+## Unintentionally modifying/updating packages 
+
+You probably don't want to do this!
+
+```
+tea +python.org pip install some_package
+```
+
+Or this!
+
+```
+tea npm install -g some_package
+```
+
+The packages will be installed to ~/.tea/python.org/v3.11.0/lib/python3.11/site-packages and ~/.tea/npmjs.com/v9.0.1/lib/node_modules, which most likely *isn't* what you want.
+
+You also don't want to do this.
+
+```
+tea +python.org=3.10.8 pip install --upgrade pip
+```
+
+It kind of defeats the purpose of having versioned installs.
 
 ## Tea PATH
 
