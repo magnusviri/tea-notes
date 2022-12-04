@@ -15,6 +15,9 @@ You can specify multiple packages and create a REPL with those dependencies in t
 
 
 
+Everything is compiled to be relocatable (this wasn't easy)
+
+They are activating virtual environments by using zsh directory hooks.
 
 ## Executable markdown
 
